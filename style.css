@@ -1,7 +1,18 @@
+@font-face {
+    font-family: 'Minecraft-Regular';
+    src:url('font/Minecraft-Regular.ttf.woff') format('woff'),
+        url('font/Minecraft-Regular.ttf.svg#Minecraft-Regular') format('svg'),
+        url('font/Minecraft-Regular.ttf.eot'),
+        url('font/Minecraft-Regular.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
   background-color: black;
   color: white;
-  font-size: 30px;
+  font-size: 15pt;
   font-family: arial;
 }
 .i {
@@ -34,4 +45,16 @@ div {
   margin: 20px 0;
   padding: 0 10px;
   box-sizing: border-box;
+}
+
+#preview-container{
+	font-family: 'Minecraft-Regular';
+	border: 0;
+	padding:2px;
+	margin-bottom:5px;
+	background-color: rgba(0,0,0,0.5);
+}
+#preview-background{
+	background-image: url('images/2020-12-28_22.41.19.jpg');
+	background-size: cover;
 }
