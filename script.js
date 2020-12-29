@@ -54,8 +54,10 @@ setInterval(() => {
 	
     preview += coloredText.map(o => `<span style='color:#${toHex(o.rgb)}'>${o.c}</span>`).join('');
   });
-  document.getElementById('command').innerText = command;
-  document.getElementById('preview').innerHTML = preview;
+  if(document.getElementById('command').innerText !== command){
+	  document.getElementById('command').innerText = command;
+	  document.getElementById('preview').innerHTML = preview;
+  }
 }, 1000)
 
 });
