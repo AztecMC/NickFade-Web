@@ -1,0 +1,60 @@
+function docReady(fn) {
+    // see if DOM is already available
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
+}    
+
+docReady(function() {
+
+
+const reg = {
+  '000000': '0',
+  '0000AA': '1',
+  '00AA00': '2',
+  '00AAAA': '3',
+  'AA0000': '4',
+  'AA00AA': '5',
+  'FFAA00': '6',
+  'AAAAAA': '7',
+  '555555': '8',
+  '5555FF': '9',
+  '55FF55': 'a',
+  '55FFFF': 'b',
+  'FF5555': 'c',
+  'FF55FF': 'd',
+  'FFFF55': 'e',
+  'FFFFFF': 'f'
+};
+const blend = ([a1, a2], r) => a1.map((p, i) => Math.round(p * (1 - r) + a2[i] * r));
+const toHex = rgb => rgb.map(n => n.toString(16).padStart(2,'0')).join('');
+Array.from(document.getElementsByTagName('i')).forEach(i => i.setAttribute('style', 'background-color:#ffffff'));
+setInterval(() => {
+  let command = '', preview = '', last;
+  Array.from(document.getElementsByTagName('li')).forEach(li => {
+    const colors = Array.from(li.getElementsByTagName('i'))
+    .map(span => getComputedStyle(span).backgroundColor)
+    .map(rgb => Array.from(rgb.matchAll(/\d+/g)).map(([c]) => Number.parseInt(c)));
+    const text = (li.getElementsByTagName('input')[0].value || '').trim().split('');
+    const coloredText = text.map((c, idx) => {
+      const pct = idx / Math.max(1, text.length - 1);
+      return {c, rgb: blend(colors, pct)};
+    });
+    command += coloredText.map(o => {
+      const hex = toHex(o.rgb).toUpperCase()
+      const curr = reg[hex] || '#' + hex;
+      const ret = curr == last ? o.c : `&${curr}${o.c}`;
+      last = curr;
+      return ret;
+    }).join('');
+	
+    preview += coloredText.map(o => `<span style='color:#${toHex(o.rgb)}'>${o.c}</span>`).join('');
+  });
+  document.getElementById('command').innerText = command;
+  document.getElementById('preview').innerHTML = preview;
+}, 1000)
+
+});
