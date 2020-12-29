@@ -4,7 +4,7 @@ body {
   font-size: 30px;
   font-family: arial;
 }
-i {
+.i {
   display: inline-block;
   width: 50px; height: 50px;
   border: 1px solid black;
@@ -12,7 +12,7 @@ i {
   margin-right: 2px;
   box-sizing: border-box;
 }
-input {
+.input {
   height: 50px;
   box-sizing: border-box;
   vertical-align: middle;

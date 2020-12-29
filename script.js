@@ -31,14 +31,15 @@ const reg = {
 };
 const blend = ([a1, a2], r) => a1.map((p, i) => Math.round(p * (1 - r) + a2[i] * r));
 const toHex = rgb => rgb.map(n => n.toString(16).padStart(2,'0')).join('');
-Array.from(document.getElementsByTagName('i')).forEach(i => i.setAttribute('style', 'background-color:#ffffff'));
+const toRGB = hex => hex.match(/([0-9a-fA-F]{2})/g).map(hexbyte => Number.parseInt(hexbyte,16));
+Array.from(document.getElementsByClassName('i')).forEach(i => i.value='#ffffff');
 setInterval(() => {
   let command = '', preview = '', last;
   Array.from(document.getElementsByTagName('li')).forEach(li => {
-    const colors = Array.from(li.getElementsByTagName('i'))
-    .map(span => getComputedStyle(span).backgroundColor)
-    .map(rgb => Array.from(rgb.matchAll(/\d+/g)).map(([c]) => Number.parseInt(c)));
-    const text = (li.getElementsByTagName('input')[0].value || '').trim().split('');
+    const colors = Array.from(li.getElementsByClassName('i'))
+    .map(span => span.value.substring(1)).map( hex => toRGB(hex) );
+    /*.map(rgb => Array.from(rgb.matchAll(/\d+/g)).map(([c]) => Number.parseInt(c)));*/
+    const text = (li.getElementsByClassName('input')[0].value || '').trim().split('');
     const coloredText = text.map((c, idx) => {
       const pct = idx / Math.max(1, text.length - 1);
       return {c, rgb: blend(colors, pct)};
@@ -58,3 +59,16 @@ setInterval(() => {
 }, 1000)
 
 });
+
+
+
+function debugColors(){
+	
+  Array.from(document.getElementsByTagName('li')).forEach(li => {
+    const colors = Array.from(li.getElementsByClassName('i'))
+	.forEach(span=>{
+		console.log(span.value)
+	});
+  });
+	
+}
