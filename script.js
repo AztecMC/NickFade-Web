@@ -40,6 +40,11 @@ docReady(function () {
                     .map(span => span.value.substring(1)).map(hex => toRGB(hex));
             /*.map(rgb => Array.from(rgb.matchAll(/\d+/g)).map(([c]) => Number.parseInt(c)));*/
             const text = (li.getElementsByClassName('input')[0].value || '').trim().split('');
+            const italic = document.getElementsByClassName('italic')[0].checked;
+            const styl = (italic)?"&o":"";
+            const fstyl = (italic)?"italic":"normal";
+            
+            
             const coloredText = text.map((c, idx) => {
                 const pct = idx / Math.max(1, text.length - 1);
                 return {c, rgb: blend(colors, pct)};
@@ -47,12 +52,12 @@ docReady(function () {
             command += coloredText.map(o => {
                 const hex = toHex(o.rgb).toLowerCase()
                 const curr = reg[hex] || '#' + hex;
-                const ret = curr == last ? o.c : `&${curr}${o.c}`;
+                const ret = curr == last ? o.c : `&${curr}${styl}${o.c}`;
                 last = curr;
                 return ret;
             }).join('');
 
-            preview += coloredText.map(o => `<span style='color:#${toHex(o.rgb)}'>${o.c}</span>`).join('');
+            preview += coloredText.map(o => `<span style="color:#${toHex(o.rgb)}; font-style:${fstyl};">${o.c}</span>`).join('');
         });
         if (document.getElementById('command').innerText !== command) {
             document.getElementById('command').innerText = command;
