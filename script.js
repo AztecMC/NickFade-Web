@@ -45,7 +45,7 @@ docReady(function () {
                 return {c, rgb: blend(colors, pct)};
             });
             command += coloredText.map(o => {
-                const hex = toHex(o.rgb).toUpperCase()
+                const hex = toHex(o.rgb).toLowerCase()
                 const curr = reg[hex] || '#' + hex;
                 const ret = curr == last ? o.c : `&${curr}${o.c}`;
                 last = curr;
