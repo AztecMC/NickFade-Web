@@ -39,7 +39,7 @@ docReady(function () {
             const colors = Array.from(li.getElementsByClassName('i'))
                     .map(span => span.value.substring(1)).map(hex => toRGB(hex));
             /*.map(rgb => Array.from(rgb.matchAll(/\d+/g)).map(([c]) => Number.parseInt(c)));*/
-            const text = (li.getElementsByClassName('input')[0].value || '').trim().split('');
+            const text = Array.from((li.getElementsByClassName('input')[0].value || '').trim());
             const italic = document.getElementsByClassName('italic')[0].checked;
             const styl = (italic)?"&o":"";
             const fstyl = (italic)?"italic":"normal";
