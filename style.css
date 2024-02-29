@@ -38,7 +38,7 @@ li {
   margin: 2px 0;
   list-style: none;
 }
-div {
+div,#copy,#export,#import{
   min-height: 50px;
   line-height: 50px;
   border: 1px solid white;
@@ -57,4 +57,31 @@ div {
 #preview-background{
 	background-image: url('images/2020-12-28_22.41.19.jpg');
 	background-size: cover;
+}
+
+#command,#preview{
+    white-space:pre;
+}
+
+.formatbox,#command-row,#options-container{
+    display: flex;
+    flex-direction: row;
+    border: 0px;
+    margin: 0px;
+    padding:0px;
+}
+.formatbox label{
+    margin-right:0.5em;
+}
+.flex-grow-1{
+    flex-grow: 1;
+}
+
+#command-row{
+    text-justify: distribute;
+}
+
+.disabled{
+    opacity: 0.25;
+    pointer-events: none;
 }

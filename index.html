@@ -1,8 +1,8 @@
 <html>
     <head>
         <title>Nick command fader</title>
-        <script src="script.js"></script>
-        <link rel="stylesheet" href="style.css">
+        <script src="script.js?v=2"></script>
+        <link rel="stylesheet" href="style.css?v=2">
     </head>
     <body>
         <!-- credits https://codepen.io/NShadeIV/pen/jOrJPpX -->
@@ -17,8 +17,29 @@
             <li><input class="i" type="color" title="Starting Color"><input class="i" type="color" title="Ending Color"><input class="input" placeholder="4th part of username"></li>
             <li><input class="i" type="color" title="Starting Color"><input class="i" type="color" title="Ending Color"><input class="input" placeholder="5th part of username"></li>
         </ul>
-        <input class="italic" type="checkbox">Italic?<hr>
-        nick command: <div id="command"></div>
+        <div id="options-container">
+            <div id="options-left" class="flex-grow-1">
+            <label for=continuouscolor style="font-style: italic;"><input id="continuouscolor" type="checkbox" checked="checked">Continuous Color Mode</label>
+                <div class="formatbox">
+                <label for=italic style="font-style: italic;"><input id="italic" type="checkbox">I</label><br>
+                <label for=bold style="font-weight: bold;"><input id="bold" type="checkbox">B</label><br>
+                <label for=underline style="text-decoration: underline;"><input id="underline" type="checkbox">U</label><br>
+                <label for=strikethrough style="text-decoration: line-through;"><input id="strikethrough" type="checkbox">S</label>
+                </div>
+                <select id="command-type">
+                    <option value="essentials" selected>Essentials command (no prefix)</option>
+                    <option value="essentials-raw">Essentials YML Value (&sect;)</option>
+                    <option value="nick">/nick</option>
+                    <option value="itemname">/itemname</option>
+                    <option value="itemlore">/itemlore</option>
+                    <option value="lorehand">/lorehand (azbasics /lore)</option>
+                </select>
+            </div>
+            <button id="export">Save</button>
+            <button id="import">Load</button>
+        </div>
+        <hr>
+        command: <div id="command-row"><div id="command" class="flex-grow-1"></div><button id="copy">Copy</button></div>
         preview: <div id="preview-background">
             <div id="preview-container">
                 &lt;<span id="preview"></span>&gt; anyone have any wood?
@@ -32,6 +53,7 @@
         <p>Then, enter each part of your username you want to fade on separate lines.</p>
         <p>Finally, click the first and second squares to choose the beginning and ending color for each fade. </p>
         <p>You do <u>not need to</u> use all of the lines</p>
+        <p>You can Shift-click the color boxes to enter a hex color code.</p>
 
     </body>
 </html>
