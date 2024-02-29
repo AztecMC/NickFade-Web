@@ -57,7 +57,7 @@ class NickFade {
             let lastvalue = null;
             for(let i=boxes.length-1;i>=0;i--){
                 if(i%2===1){
-                    if(state){
+                    if(state && i!==(boxes.length-1)){
                         boxes[i].classList.add('disabled');
                         if(lastvalue!==null) boxes[i].value = lastvalue;
                     }
