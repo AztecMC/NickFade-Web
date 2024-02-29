@@ -57,7 +57,7 @@ class NickFade {
             let lastvalue = null;
             let iFirstEmptyText = this.getLastNonEmptyTextIndex();
             let nLines = boxes.length/2;
-            console.log((boxes.length-1),(iFirstEmptyText-1))
+            //console.log((boxes.length-1),(iFirstEmptyText-1))
             for(let i=boxes.length-1;i>=0;i--){
                 let iTextLine = Math.floor(i/2);
                 if(i%2===1){
@@ -80,7 +80,7 @@ class NickFade {
             let sections = this.getSections();
             for(let i=sections.length-1;i>=0;i--){
                 let str = this.getTextStr(sections[i]);
-                console.log(i,str,str!=="")
+                //console.log(i,str,str!=="")
                 if(str!=="") return i;
             }
             return -1;
