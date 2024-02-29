@@ -102,7 +102,7 @@ class NickFade {
                 boxes[i].value = state.colors[i]??'';
             }
             for(let i=0;i<sections.length;i++){
-                sections[i].getElementsByTagName('input').value=state.texts[i];
+                sections[i].getElementsByClassName('input')[0].value=state.texts[i];
             }
             document.getElementById('continuouscolor').checked = !!(state.continuouscolor??0);
             document.getElementById('command-type').value = state.commandType??"essentials";
