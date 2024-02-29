@@ -318,9 +318,14 @@ class NickFade {
             document.getElementById('import').onclick = this.UI.importState.bind(this.UI);
             this.UI.getColorBoxes().forEach(box=>{
                 box.onclick=function(e){
-                    if (e.shiftKey || e.altKey || e.ctrlKey){
-                        NickFade.UI.promptHexColorForInput(this,e);
+                    if (e.shiftKey || e.altKey){
                         e.preventDefault();
+                        NickFade.UI.promptHexColorForInput(this,e);
+                    }
+                    if(e.ctrlKey){
+                        e.preventDefault();
+                        navigator.clipboard.writeText((this.value??"#").substring(1));
+                        alert("Copied Hex Code!");
                     }
                 }
             });
