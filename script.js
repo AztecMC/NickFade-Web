@@ -239,13 +239,23 @@ class NickFade {
 
         static toCommand(formats,type){
             switch(type){
-                case 'essentials': return this.toEssentials(formats,'&',false);
                 case 'essentials-raw': return this.toEssentials(formats,"\xA7",true);
-                case 'nick': return "/nick "+this.toEssentials(formats,'&',false);
-                case 'itemname': return "/iname "+this.toEssentials(formats,'&',false);
-                case 'itemlore': return "/ilore "+this.toEssentials(formats,'&',false);
-                case 'lorehand': return "/lore "+this.toEssentials(formats,'&',false).replaceAll(' ','_');
+                case 'lorehand': return this.toEssentials(formats,'&',false).replaceAll(' ','_');
+
+                case 'essentials': return this.toEssentials(formats,'&',false);
+                case 'nick': return this.toEssentials(formats,'&',false);
+                case 'itemname': return this.toEssentials(formats,'&',false);
+                case 'itemlore': return this.toEssentials(formats,'&',false);
             }
+        }
+        static getCommandPrefix(type){
+            switch(type){
+                case 'nick': return "/nick ";
+                case 'itemname': return "/iname ";
+                case 'itemlore': return "/ilore ";
+                case 'lorehand': return "/lore ";
+            }
+            return "";
         }
 
         static toPreview(formats){
@@ -263,13 +273,15 @@ class NickFade {
     static process(){
         let command = '', preview = '', last;
         this.UI.applyContinuousColorMode();
+        const commandType = this.UI.getCommandType();
+        const flags = this.UI.getFlags();
+
+        const prefix = this.Formats.getCommandPrefix(commandType);
 
         this.UI.getSections().forEach(li => {
             const colors = this.UI.getColors(li);
             /*.map(rgb => Array.from(rgb.matchAll(/\d+/g)).map(([c]) => Number.parseInt(c)));*/
             const text = this.UI.getText(li);
-            const flags = this.UI.getFlags();
-            const commandType = this.UI.getCommandType();
             //console.log('flags',flags)
 
 
@@ -277,6 +289,9 @@ class NickFade {
             command += this.Formats.toCommand(coloredText,commandType);
             preview += this.Formats.toPreview(coloredText);
         });
+
+        command = prefix + command;
+
         if (document.getElementById('command').innerText !== command) {
             document.getElementById('command').innerText = command;
             document.getElementById('preview').innerHTML = preview;
