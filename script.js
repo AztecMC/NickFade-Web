@@ -156,6 +156,24 @@ class NickFade {
             }
             input.value = "#"+hex;
         }
+
+        static exportStateToLocalStorage(){
+            let state=this.getState();
+            let json = JSON.stringify(state);
+            try{
+                localStorage.setItem("nickfade-state",json);
+            }catch (ex){
+            }
+        }
+        static importStateFromLocalStorage(){
+            try{
+                let json = localStorage.getItem("nickfade-state");
+                if(json===null) return;
+                NickFade.UI.importStateJSON(json);
+            }catch (ex){
+
+            }
+        }
     }
     static Util = class {
         static blend = ([a1, a2], r) => a1.map((p, i) => Math.round(p * (1 - r) + a2[i] * r));
@@ -309,10 +327,12 @@ class NickFade {
             document.getElementById('command').innerText = command;
             document.getElementById('preview').innerHTML = preview;
         }
+        this.UI.exportStateToLocalStorage();
     }
     static init(){
         this.UI.docReady( ()=>{
             this.UI.clearColors();
+            this.UI.importStateFromLocalStorage();
             document.getElementById('copy').onclick = this.UI.copyCommand.bind(this.UI);
             document.getElementById('export').onclick = this.UI.exportState.bind(this.UI);
             document.getElementById('import').onclick = this.UI.importState.bind(this.UI);
